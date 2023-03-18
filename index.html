@@ -121,16 +121,16 @@ Obrigado!</p>
 	var tam_menu = array_length(menu_inicial); // Obtém o comprimento do array "menu_inicial" e armazena em "tam_menu".
 
 	function sel_hover(mx, my, x1, y1, x2, y2, selectedColor, hoverColor) {
-    if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
-        draw_set_color(hoverColor);
-    } else {
-        draw_set_color(selectedColor);
-    }
-}
+		if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
+			draw_set_color(hoverColor);
+		} else {
+			draw_set_color(selectedColor);
+		}
+	}
 
-// Loop que desenha o menu
-for(var i = 0; i < tam_menu; i++)
-{
+	// Loop que desenha o menu
+	for(var i = 0; i < tam_menu; i++)
+	{
 	// Definição de espaço entre linhas
 	var gui_largura = display_get_gui_width(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
 	var gui_altura = display_get_gui_height(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
@@ -184,13 +184,13 @@ for(var i = 0; i < tam_menu; i++)
 		draw_set_color(c_white); // mantém a cor do texto branca
 	}
 
-	draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], escala[i], escala[i], 0); // desenha o texto do item atual do menu com as transformações de escala aplicadas
-}
+		draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], escala[i], escala[i], 0); // desenha o texto do item atual do menu com as transformações de escala aplicadas
+	}
 
-// Resetando fonte e alinhamento
-draw_set_halign(-1); // remove o alinhamento horizontal
-draw_set_valign(-1); // remove o alinhamento vertical
-draw_set_font(-1); // remove a fonte
+	// Resetando fonte e alinhamento
+	draw_set_halign(-1); // remove o alinhamento horizontal
+	draw_set_valign(-1); // remove o alinhamento vertical
+	draw_set_font(-1); // remove a fonte
 
 		</code></pre>
 	</main>
