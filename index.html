@@ -99,17 +99,17 @@
 	/// @description Menu Draw
 
 	// Variáveis para as escalas do mouse e do teclado
-var _mx = device_mouse_x_to_gui(0); // Obtém a posição X atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
-var _my = device_mouse_y_to_gui(0); // Obtém a posição Y atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
+	var _mx = device_mouse_x_to_gui(0); // Obtém a posição X atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
+	var _my = device_mouse_y_to_gui(0); // Obtém a posição Y atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
 
-// Definição de fonte e alinhamento
-draw_set_font(ftMenu); // Define a fonte atual para desenho de texto
-draw_set_halign(fa_center); // Define o alinhamento horizontal do texto para centralizado
-draw_set_valign(fa_middle); // Define o alinhamento vertical do texto para centralizado
+	// Definição de fonte e alinhamento
+	draw_set_font(ftMenu); // Define a fonte atual para desenho de texto
+	draw_set_halign(fa_center); // Define o alinhamento horizontal do texto para centralizado
+	draw_set_valign(fa_middle); // Define o alinhamento vertical do texto para centralizado
 
-var tam_menu = array_length(menu_inicial); // Obtém o comprimento do array "menu_inicial" e armazena em "tam_menu".
+	var tam_menu = array_length(menu_inicial); // Obtém o comprimento do array "menu_inicial" e armazena em "tam_menu".
 
-function sel_hover(mx, my, x1, y1, x2, y2, selectedColor, hoverColor) {
+	function sel_hover(mx, my, x1, y1, x2, y2, selectedColor, hoverColor) {
     if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
         draw_set_color(hoverColor);
     } else {
