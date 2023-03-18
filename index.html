@@ -1,0 +1,175 @@
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Vedomí | Freelance Code</title>
+	<style>
+		body {
+			margin-top: 160px;
+            margin-bottom: 60px;
+			padding: 0;
+			font-family: Arial, sans-serif;
+            background-color: rgb(189, 198, 203);
+		}
+		header {
+			background-color: #8d9ca0;
+			text-align: center;
+            position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 20px;
+			z-index: 1;
+		}
+		header img {
+			display: block;
+			margin: 0 auto;
+			width: 120px;
+			height: 120px;
+		}
+		main {
+            margin-top: 120px;
+			padding: 20px;
+			line-height: 20px;
+		}
+		footer {
+			background-color: #8d9ca0;
+			color: #fff;
+			text-align: center;
+			padding: 6px 0;
+			position: fixed;
+			bottom: 0;
+			width: 100%;
+            left: 0;
+			right: 0;
+            bottom: 0;
+		}
+		pre {
+			background-color: #eee;
+			padding: 10px;
+			border-radius: 5px;
+			margin-bottom: 20px;
+            white-space:break-spaces;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<img src="https://drive.google.com/uc?id=1QgLa8AjYkyhrWn5F8WhUR8a9mirVVH2o" alt="Logo">
+	</header>
+	<main>
+    <h3>
+        Olá desenvolvedores,
+
+        <p style="background-color: #bbe3ee; padding: 20px; border-radius: 5px; margin-bottom: 20px; white-space: break-spaces;align-items: left; font-weight: 400; font-size: medium;">O estúdio Vedomi está procurando um, ou mais, programadores GML para nos ajudar com o desenvolvimento de um jogo que estamos trabalhando. Precisamos de ajuda em jobs pontuais até a metade do jogo e, a partir daí, esperamos uma parceria mais sólida. O pagamento será por hora ou por demanda, e é importante que você esteja comprometido com o projeto.
+
+        O Vedomi é um estúdio de de Ilustração, Design Gráfico, Concept Art & Games, que pode ser encontrado no Behance, Artstation, Instagram e outras redes. Os sócios são Maira Macri (@mairamacri) e Eduardo Louzada (@adazoul). Prestamos serviços para empresas e agências.
+
+        Este projeto será publicado na Steam e mobile (Play Store do Google).
+
+        Além disso, precisamos definir um tempo mínimo semanal para colaboração mais efetiva futuramente.
+        Se você se interessa em fazer parte da nossa equipe, por favor, entre em contato conosco com seu portfólio e expectativa de remuneração.
+
+        Obrigado!</p>
+    </h3>
+
+		<p>Segue um teste simples - 'e remunerado' - para quem quiser se candidatar. Tudo bem?</p>
+		<pre><code>
+	Abaixo existe dois códigos GML para o menu do game test que foi criado recentemente (e publicado aqui).
+	Existe um problema de interação entre 'mouse' e 'teclado'.
+
+	Só é preciso deixar as funções já existentes de mouse e teclado 'somadas e funcionais'.
+		</code></pre>
+		<pre><code>
+	/// @description Menu Criar
+
+	window_set_size(1280, 720)
+
+	options = ["novo jogo","carregar jogo","opções","sair"];
+	index = 0;
+	op_max = array_length(options);
+		</code></pre>
+		<pre><code>
+	/// @description Menu Draw
+
+	var _mx = device_mouse_x_to_gui(0); // MOUSE
+	var _my = device_mouse_y_to_gui(0); //MOUSE
+
+	draw_set_font(ftMenu);
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
+
+	var tam_menu = array_length(menu_inicial);
+	for(var i = 0; i < tam_menu; i++)
+	{
+		var gui_largura = display_get_gui_width();
+		var gui_altura = display_get_gui_height();
+
+		var altura_str = string_height("I");
+		var largura_str = string_width(menu_inicial[i]);
+
+		var x1 = gui_largura / 2 - largura_str / 2;
+		var y1 = gui_altura / 2 - altura_str / 2 + altura_str * i //top left MOUSE
+
+		var x2 = gui_largura / 2 + largura_str / 2;
+		var y2 = gui_altura / 2 + altura_str / 2 + altura_str * i // top right MOUSE
+
+		if(point_in_rectangle(_mx, _my, x1, y1, x2, y2)) // MOUSE
+		{
+			esc[i] = lerp(esc[i], 1.4, 0.15);
+
+			if(mouse_check_button_pressed(mb_left))
+			{
+				switch menu_inicial[i]
+				{
+					case menu_inicial[0]: //Jogar
+						/*show_message("Vamos Jogar");*/
+						room_goto(rLevel1)
+						break;
+					case menu_inicial[1]: //Carregar
+						show_message("Carregar um jogo salvo");
+						break;
+					case menu_inicial[2]: //Opções
+						show_message("Tenho que configurar algumas coisas");
+						break;
+					case menu_inicial[3]: //Sair
+						game_end();
+						break;
+				}
+			}
+
+		}
+		else
+		{
+			esc[i] = lerp(esc[i], 1, 0.15);
+		}
+
+		if(index == i)
+		{
+			draw_set_color(c_orange);
+		}
+		else
+		{
+			draw_set_color(c_white);
+		}
+
+		draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], esc[i], esc[i], 0);
+	}
+
+	draw_set_halign(-1);
+	draw_set_valign(-1);
+	draw_set_font(-1);
+
+		</code></pre>
+	</main>
+	<footer>
+		<p>Created by Vedomí</p>
+	</footer>
+</body>
+</html>
