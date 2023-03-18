@@ -98,73 +98,88 @@
 		<pre><code>
 	/// @description Menu Draw
 
-	var _mx = device_mouse_x_to_gui(0); // MOUSE
-	var _my = device_mouse_y_to_gui(0); //MOUSE
+	// Variáveis para as escalas do mouse e do teclado
+var _mx = device_mouse_x_to_gui(0); // Obtém a posição X atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
+var _my = device_mouse_y_to_gui(0); // Obtém a posição Y atual do mouse em relação ao canto superior esquerdo da janela de jogo convertida em coordenadas de GUI.
 
-	draw_set_font(ftMenu);
-	draw_set_halign(fa_center);
-	draw_set_valign(fa_middle);
+// Definição de fonte e alinhamento
+draw_set_font(ftMenu); // Define a fonte atual para desenho de texto
+draw_set_halign(fa_center); // Define o alinhamento horizontal do texto para centralizado
+draw_set_valign(fa_middle); // Define o alinhamento vertical do texto para centralizado
 
-	var tam_menu = array_length(menu_inicial);
-	for(var i = 0; i < tam_menu; i++)
+var tam_menu = array_length(menu_inicial); // Obtém o comprimento do array "menu_inicial" e armazena em "tam_menu".
+
+function sel_hover(mx, my, x1, y1, x2, y2, selectedColor, hoverColor) {
+    if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
+        draw_set_color(hoverColor);
+    } else {
+        draw_set_color(selectedColor);
+    }
+}
+
+// Loop que desenha o menu
+for(var i = 0; i < tam_menu; i++)
+{
+	// Definição de espaço entre linhas
+	var gui_largura = display_get_gui_width(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
+	var gui_altura = display_get_gui_height(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
+	var altura_str = string_height("I"); // Obtém a altura aproximada da string "I" com a fonte atual
+	var largura_str = string_width(menu_inicial[i]); // Obtém a largura aproximada da string atual do menu com a fonte atual
+
+	// Define as coordenadas de canto superior esquerdo e canto inferior direito do retângulo atual do menu
+	var x1 = gui_largura / 2 - largura_str / 2;
+	var y1 = gui_altura / 2 - altura_str / 2 + altura_str * i; //top left MOUSE
+
+	var x2 = gui_largura / 2 + largura_str / 2;
+	var y2 = gui_altura / 2 + altura_str / 2 + altura_str * i; // top right MOUSE
+
+	sel_hover(_mx, _my, x1, y1, x2, y2, c_white, c_orange); // adiciona a função sel_hover para mudar a cor do texto
+
+	if(point_in_rectangle(_mx, _my, x1, y1, x2, y2)) // Verifica se a posição atual do mouse está dentro do retângulo do menu atual
 	{
-		var gui_largura = display_get_gui_width();
-		var gui_altura = display_get_gui_height();
+		escala[i] = lerp(escala[i], 1.4, 0.15);	// Interpola linearmente a escala atual para 1.4 (aumento da escala) com uma velocidade de interpolação de 0.15 por quadro.
 
-		var altura_str = string_height("I");
-		var largura_str = string_width(menu_inicial[i]);
-
-		var x1 = gui_largura / 2 - largura_str / 2;
-		var y1 = gui_altura / 2 - altura_str / 2 + altura_str * i //top left MOUSE
-
-		var x2 = gui_largura / 2 + largura_str / 2;
-		var y2 = gui_altura / 2 + altura_str / 2 + altura_str * i // top right MOUSE
-
-		if(point_in_rectangle(_mx, _my, x1, y1, x2, y2)) // MOUSE
+		if(mouse_check_button_pressed(mb_left)) // Verifica se o botão esquerdo do mouse foi pressionado
 		{
-			esc[i] = lerp(esc[i], 1.4, 0.15);
-
-			if(mouse_check_button_pressed(mb_left))
+			switch menu_inicial[i] // Verifica qual opção do menu foi selecionada
 			{
-				switch menu_inicial[i]
-				{
-					case menu_inicial[0]: //Jogar
-						/*show_message("Vamos Jogar");*/
-						room_goto(rLevel1)
-						break;
-					case menu_inicial[1]: //Carregar
-						show_message("Carregar um jogo salvo");
-						break;
-					case menu_inicial[2]: //Opções
-						show_message("Tenho que configurar algumas coisas");
-						break;
-					case menu_inicial[3]: //Sair
-						game_end();
-						break;
-				}
+				case menu_inicial[0]: //Jogar
+					/*show_message("Vamos Jogar");*/
+					room_goto(rLevel1) // Vai para a room (sala) com o nome "rLevel1"
+					break; // sai do switch
+				case menu_inicial[1]: //Carregar
+					show_message("Carregar um jogo salvo"); // Exibe uma mensagem na tela
+					break; // sai do switch
+				case menu_inicial[2]: //Opções
+					show_message("Tenho que configurar algumas coisas");
+					break; // sai do switch
+				case menu_inicial[3]: //Sair - verifica se o último item do menu foi selecionado
+					game_end(); // encerra o jogo
+					break; // sai do switch
 			}
-
 		}
-		else
-		{
-			esc[i] = lerp(esc[i], 1, 0.15);
-		}
-
-		if(index == i)
-		{
-			draw_set_color(c_orange);
-		}
-		else
-		{
-			draw_set_color(c_white);
-		}
-
-		draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], esc[i], esc[i], 0);
+	}
+	else // se o mouse não estiver sobre o item do menu
+	{
+		escala[i] = lerp(escala[i], 1, 0.15); // ajusta a escala para 1 (sem aumento)
 	}
 
-	draw_set_halign(-1);
-	draw_set_valign(-1);
-	draw_set_font(-1);
+	if(index == i) // se o item atual é o selecionado
+	{
+		draw_set_color(c_orange); // altera a cor do texto para laranja
+	}
+	else // se não é o item selecionado
+	{
+		draw_set_color(c_white); // mantém a cor do texto branca
+	}
+
+	draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], escala[i], escala[i], 0); // desenha o texto do item atual do menu com as transformações de escala aplicadas
+}
+
+// Resetando fonte e alinhamento
+draw_set_halign(-1); // remove o alinhamento horizontal
+draw_set_valign(-1); // remove o alinhamento vertical
+draw_set_font(-1); // remove a fonte
 
 		</code></pre>
 	</main>
