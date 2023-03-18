@@ -1,7 +1,7 @@
 </body>
 </html><!DOCTYPE html>
 <html>
-	<head>
+<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,13 +58,13 @@
             white-space:break-spaces;
 		}
 	</style>
-	</head>
-	<body>
+</head>
+<body>
 	<header>
 		<img src="https://drive.google.com/uc?id=1QgLa8AjYkyhrWn5F8WhUR8a9mirVVH2o" alt="Logo">
 	</header>
 	<main>
-    	<h3>
+    <h3>
         Olá desenvolvedores,
 
         <p style="background-color: #bbe3ee; padding: 20px; border-radius: 5px; margin-bottom: 20px; white-space: break-spaces;align-items: left; font-weight: 400; font-size: medium;">O estúdio Vedomi está procurando um, ou mais, programadores GML para nos ajudar com o desenvolvimento de um jogo que estamos trabalhando. Precisamos de ajuda em jobs pontuais até a metade do jogo e, a partir daí, esperamos uma parceria mais sólida. O pagamento será por hora ou por demanda, e é importante que você esteja comprometido com o projeto.
@@ -77,20 +77,17 @@
         Se você se interessa em fazer parte da nossa equipe, por favor, entre em contato conosco com seu portfólio e expectativa de remuneração.
 
         Obrigado!</p>
-    	</h3>
+    </h3>
 
-	<p>Segue um teste simples - 'e remunerado' - para quem quiser se candidatar. Tudo bem?</p>
-		
-	<pre><code>
+		<p>Segue um teste simples - 'e remunerado' - para quem quiser se candidatar. Tudo bem?</p>
+		<pre><code>
 	Abaixo existe dois códigos GML para o menu do game test que foi criado recentemente (e publicado aqui).
 	Existe um problema de interação entre 'mouse' e 'teclado'.
 
 	Só é preciso deixar as funções já existentes de mouse e teclado 'somadas e funcionais'.
-	</code></pre>
-		
-	<pre><code>
+		</code></pre>
+		<pre><code>
 	/// @description Menu Criar
-	// Você pode escrever seu código neste editor
 
 	window_set_size(1280, 720)
 
@@ -106,9 +103,8 @@
 	{
 		escala[i] = 1;
 	}
-	</code></pre>
-
-	<pre><code>
+		</code></pre>
+		<pre><code>
 	/// @description Menu Draw
 
 	// Variáveis para as escalas do mouse e do teclado
@@ -123,16 +119,16 @@
 	var tam_menu = array_length(menu_inicial); // Obtém o comprimento do array "menu_inicial" e armazena em "tam_menu".
 
 	function sel_hover(mx, my, x1, y1, x2, y2, selectedColor, hoverColor) {
-	    if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
-		draw_set_color(hoverColor);
-	    } else {
-		draw_set_color(selectedColor);
-	    }
-	}
+    if (point_in_rectangle(mx, my, x1, y1, x2, y2)) {
+        draw_set_color(hoverColor);
+    } else {
+        draw_set_color(selectedColor);
+    }
+}
 
-	// Loop que desenha o menu
-	for(var i = 0; i < tam_menu; i++)
-	{
+// Loop que desenha o menu
+for(var i = 0; i < tam_menu; i++)
+{
 	// Definição de espaço entre linhas
 	var gui_largura = display_get_gui_width(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
 	var gui_altura = display_get_gui_height(); // Obtém a largura atual da janela de jogo convertida em coordenadas de GUI
@@ -186,18 +182,18 @@
 		draw_set_color(c_white); // mantém a cor do texto branca
 	}
 
-		draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], escala[i], escala[i], 0); // desenha o texto do item atual do menu com as transformações de escala aplicadas
-	}
+	draw_text_transformed(gui_largura / 2, gui_altura / 2 + altura_str * i, menu_inicial[i], escala[i], escala[i], 0); // desenha o texto do item atual do menu com as transformações de escala aplicadas
+}
 
-	// Resetando fonte e alinhamento
-	draw_set_halign(-1); // remove o alinhamento horizontal
-	draw_set_valign(-1); // remove o alinhamento vertical
-	draw_set_font(-1); // remove a fonte
+// Resetando fonte e alinhamento
+draw_set_halign(-1); // remove o alinhamento horizontal
+draw_set_valign(-1); // remove o alinhamento vertical
+draw_set_font(-1); // remove a fonte
 
-	</code></pre>
+		</code></pre>
 	</main>
 	<footer>
 		<p>Created by Vedomí</p>
 	</footer>
-	</body>
+</body>
 </html>
